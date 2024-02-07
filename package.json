@@ -6,8 +6,8 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "webpack serve --env mode=development",
-		"dev": "webpack -env --mode development",
-		"build": "webpack -env --mode production"
+		"dev": "webpack --env mode=development",
+		"build": "webpack --env mode=production"
 	},
 	"keywords": [],
 	"author": "",

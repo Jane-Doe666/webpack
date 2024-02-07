@@ -41,7 +41,7 @@ export default (env: EnvVariables) => {
 		resolve: {
 			extensions: [".tsx", ".ts", ".js"],
 		},
-		devtool: isDev ? "inline-source-map" : undefined,
+		devtool: isDev && "inline-source-map",
 		devServer: isDev
 			? {
 					port: env.port ?? 8080,
