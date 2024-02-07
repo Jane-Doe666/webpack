@@ -11,22 +11,26 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
 		exclude: /node_modules/,
 	};
 
-	// const cssLoader = {
-	// 	test: /\.css$/i,
-	// 	use: ["style-loader", "css-loader"],
-	// };
+	const cssLoaderModules = {
+		loader: "css-loader",
+		options: {
+			modules: {
+				localIdentName: isDev ? "[path][name]__[local]" : "[hash:base64:5]",
+			},
+		},
+	};
 
-	const sassLoader = {
+	const scssLoader = {
 		test: /\.s[ac]ss$/i,
 		use: [
-			// Creates `style` nodes from JS strings (MiniCssExtractPlugin create css chunck)
+			// Creates `style` nodes from JS strings (MiniCssExtractPlugin create .css in build)
 			isDev ? "style-loader" : MiniCssExtractPlugin.loader,
 			// Translates CSS into CommonJS
-			"css-loader",
+			cssLoaderModules,
 			// Compiles Sass to CSS
 			"sass-loader",
 		],
 	};
 
-	return [sassLoader, tsxLoader];
+	return [scssLoader, tsxLoader];
 }

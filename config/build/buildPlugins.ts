@@ -12,7 +12,6 @@ export function buildPlugins({
 
 	const plugins: Configuration["plugins"] = [
 		new HtmlWebpackPlugin({
-			// template: path.resolve(__dirname, "src", "index.html"),
 			template: paths.html,
 			filename: "index.html",
 		}),
