@@ -2,14 +2,15 @@
 	"compilerOptions": {
 		"outDir": "./dist/",
 		"noImplicitAny": true,
-		// "module": "es6",
 		"module": "esnext",
 		"target": "es5",
 		"jsx": "react-jsx",
 		"allowJs": true,
 		"moduleResolution": "node",
 		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true
+		"esModuleInterop": true, // import * as Smth => import Smth from
+		"baseUrl": ".", // allias
+		"paths": { "@/*": ["./src/*"] } // allias
 	},
 	"ts-node": {
 		"compilerOptions": {

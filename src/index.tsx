@@ -1,10 +1,9 @@
 import { createRoot } from "react-dom/client";
 import { App } from "./components/App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import About from "./pages/about/About";
+import About from "@/pages/about/About";
 import { LazyAbout } from "./pages/about/About.lazy";
 import { Suspense } from "react";
-import Shop from "./pages/shop/Shop";
 import { LazyShop } from "./pages/shop/Shop.lazy";
 
 const router = createBrowserRouter([
