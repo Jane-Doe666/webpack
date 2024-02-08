@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import styles from "./App.module.scss";
 
 export const App = () => {
@@ -13,6 +14,7 @@ export const App = () => {
 			<button className={styles.button} onClick={handleClick}>
 				<span>+++</span>
 			</button>
+			<Outlet />
 		</div>
 	);
 };
