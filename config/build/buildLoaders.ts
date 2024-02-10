@@ -71,5 +71,21 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
 		],
 	};
 
+	const babelLoader = {
+		// install presets for ts/react
+		test: /\.tsx?$/,
+		exclude: /node_modules/,
+		use: {
+			loader: "babel-loader",
+			options: {
+				presets: [
+					"@babel/preset-env",
+					"@babel/preset-typescript",
+					"@babel/preset-react",
+				],
+			},
+		},
+	};
+
 	return [scssLoader, imagesLoader, svgLoader, tsLoader];
 }
