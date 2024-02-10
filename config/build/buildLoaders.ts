@@ -5,10 +5,17 @@ import { BuildOptions } from "./types/type";
 export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
 	const isDev = options.mode === "development";
 
-	const tsxLoader = {
-		test: /\.tsx?$/,
-		use: "ts-loader",
+	const tsLoader = {
 		exclude: /node_modules/,
+		test: /\.tsx?$/,
+		use: [
+			{
+				loader: "ts-loader",
+				options: {
+					transpileOnly: true,
+				},
+			},
+		],
 	};
 
 	const cssLoaderModules = {
@@ -32,5 +39,28 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
 		],
 	};
 
-	return [scssLoader, tsxLoader];
+	const imagesLoader = {
+		test: /\.(png|jpg|jpeg|gif)$/i,
+		type: "asset/resource",
+	};
+
+	const svgLoader = {
+		test: /\.svg$/i,
+		issuer: /\.[jt]sx?$/,
+		use: [
+			{
+				loader: "@svgr/webpack",
+				options: {
+					icon: true,
+					svgConfig: {
+						plugins: [
+							{ name: "convertColors", params: { currentColor: true } },
+						],
+					},
+				},
+			},
+		],
+	};
+
+	return [scssLoader, imagesLoader, svgLoader, tsLoader];
 }
