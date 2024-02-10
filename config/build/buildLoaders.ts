@@ -1,28 +1,16 @@
 import { ModuleOptions } from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { BuildOptions } from "./types/type";
+import ReactRefreshTypeScript from "react-refresh-typescript";
 
 export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
 	const isDev = options.mode === "development";
-
-	const tsLoader = {
-		exclude: /node_modules/,
-		test: /\.tsx?$/,
-		use: [
-			{
-				loader: "ts-loader",
-				options: {
-					transpileOnly: true,
-				},
-			},
-		],
-	};
 
 	const cssLoaderModules = {
 		loader: "css-loader",
 		options: {
 			modules: {
-				localIdentName: isDev ? "[path][name]__[local]" : "[hash:base64:5]",
+				localIdentName: isDev ? "[path][name]__[local]" : "[hash:base64:5]", // именование классов
 			},
 		},
 	};
@@ -50,13 +38,34 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
 		use: [
 			{
 				loader: "@svgr/webpack",
+				// для работы с svg как с react.component и передавать пропс (цвета, размеры) как с иконками
 				options: {
 					icon: true,
+					// работа как с иконками, иначе меняется размер контейнера div внутри которого svg, а не сам svg
 					svgConfig: {
 						plugins: [
 							{ name: "convertColors", params: { currentColor: true } },
+							// важно чтобы задавать цвет svg через color, иначе будут работать только fill и stroke (элемент и область)
 						],
 					},
+				},
+			},
+		],
+	};
+
+	const tsLoader = {
+		exclude: /node_modules/,
+		test: /\.tsx?$/,
+		use: [
+			{
+				loader: "ts-loader",
+				options: {
+					getCustomTransformers: () => ({
+						// обновление стр. без перезагрузки
+						before: [isDev && ReactRefreshTypeScript()].filter(Boolean),
+					}),
+					transpileOnly: isDev,
+					// не будет делать проверку типов во время компиляции в режиме разработки. ускоряет сборку
 				},
 			},
 		],

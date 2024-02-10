@@ -13,7 +13,7 @@ export const App = () => {
 
 	return (
 		<div>
-			<h2>{counter}</h2>
+			<h2>{counter} ло</h2>
 			<button className={styles.button} onClick={handleClick}>
 				<span>+++</span>
 			</button>

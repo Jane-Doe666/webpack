@@ -1,3 +1,5 @@
+// декларируем список расширений, иначе тайпскрипт не понимает эти расширения
+
 declare module "*.scss" {
 	interface IClassNames {
 		[className: string]: string;
